@@ -19,7 +19,7 @@ public class SimpleSafeApp {
     File pwd = new File(".");
     String password;
     private void buildGUI(){
-        frame = new JFrame();
+        frame = new JFrame("Simple Safe");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         pane = new JTextPane();
