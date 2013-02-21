@@ -7,11 +7,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * Created with IntelliJ IDEA.
+ * Start the simple safe application, which is just a JFrame
+ * with a JTextPane for editing/viewing text and a menu bar.
+ *
  * User: melkor
  * Date: 2/16/13
  * Time: 2:34 PM
- * To change this template use File | Settings | File Templates.
  */
 public class SimpleSafeApp {
     JTextPane pane;
@@ -23,7 +24,7 @@ public class SimpleSafeApp {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         pane = new JTextPane();
-        frame.add(pane, BorderLayout.CENTER);
+        frame.add(new JScrollPane(pane), BorderLayout.CENTER);
 
         JMenuBar bar = new JMenuBar();
         JMenu file = new JMenu("file");
