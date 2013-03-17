@@ -15,11 +15,12 @@ import java.security.spec.KeySpec;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
+ * For encrypting and decrypting strings to a file. The salt is fixed, the keysize can change depending on
+ * weather or not your platform supports the larger key.
+ *
  * User: melkor
  * Date: 2/17/13
  * Time: 9:45 AM
- * To change this template use File | Settings | File Templates.
  */
 public class SafeCrypt {
     final String encryption_provider = "AES/CBC/PKCS5Padding";
@@ -27,8 +28,9 @@ public class SafeCrypt {
     byte[] salt;
     ArrayList<String> errors = new ArrayList<String>();
     SecretKey secret;
-
-    public SafeCrypt(String salt){
+    int key_size;
+    public SafeCrypt(String salt, int key_size){
+        this.key_size = key_size;
         try {
             this.salt = salt.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -43,7 +45,7 @@ public class SafeCrypt {
 
         try {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            KeySpec spec = new PBEKeySpec(this.password, salt, 65536, 256);
+            KeySpec spec = new PBEKeySpec(this.password, salt, 65536, key_size);
             SecretKey tmp = factory.generateSecret(spec);
             secret = new SecretKeySpec(tmp.getEncoded(), "AES");
 
